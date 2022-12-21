@@ -53,7 +53,7 @@ class Bridge(Bridge):
         """Set the effect of the light."""
         self.set_light(light_id, 'effect', effect)
 
-    def set_color_loop(self, group):  # Funktionen bör startas i en egen tråd då den är blockerande
+    def set_color_loop(self, group):  # Funktionen bör startas i en egen tråd då den är blocker
         """Set the color loop of the light."""
         TOTAL_TIME = 30  # Total tid i sekunder
         TRANSITION_TIME = 2 # Tid för varje transition i sekunder
@@ -78,4 +78,4 @@ class Bridge(Bridge):
 
     if __name__ == '__main__':
         bridge = Bridge()
-        bridge.print_lights()
+        

@@ -27,7 +27,7 @@ def debug_print():
         print(f"Number of lights: {len(light_list)}")
         for l in light_list:
             light_info = bridge.get_light(l.light_id)
-            print(light_info['capabilities']['control'])
+            #print(light_info['capabilities']['control'])
             # Check if the light has color capabilities
             if 'xy' in light_info['state']:
                 print(f'Light: {l.name}, id: {l.light_id}: has color capabilities.')
@@ -57,24 +57,12 @@ def main():
         
 
     # Tända alla lampor i bedroom1 och sätt ljusstyrka till 100
-    command = { 
-        'transitiontime': 10,
-        'on': True,
-        'bri': 100
-    }
-
-    # bridge.set_color_loop(bedroom1) # Låser fast programmet :( kanske behöver en egen tråd eller tid som parameter/argument
-
-    
-        
-        
-    
-    #data = bridge.get_light_objects('id') # Hämta data från alla lampor som dictionaries
-    #print(data[5])
-    
-    
     
 
+    bridge.set_color_loop(bedroom1) # Låser fast programmet :( kanske behöver en egen tråd eller tid som parameter/argument
+
+    
+    
 
 if __name__ == '__main__':
     main()
