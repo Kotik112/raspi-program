@@ -18,8 +18,8 @@ class Light(Light):
 
 def __str__(self):
     """Return a string representation of the light."""
-    return f'Light: {self.name}, id: {self.id}'
+    return f'Light name: {self.name}, id: {self.light_id}'
 
 def __repr__(self):
     """Return a string representation of the light."""
-    return f'Light: {self.name}, id: {self.id}'
+    return f'Light name: {self.name}, id: {self.light_id}'

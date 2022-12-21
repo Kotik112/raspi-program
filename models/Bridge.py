@@ -6,7 +6,6 @@ The Bridge class also contains a list of Light objects representing the lights c
 """
 
 from phue import Bridge
-from models.Light import Light
 
 class Bridge(Bridge):
     BRIDGE_IP = '192.168.1.128'
@@ -16,6 +15,7 @@ class Bridge(Bridge):
     def __init__(self):
         """Initialize the Bridge object and connect to the bridge."""
         super().__init__(ip=Bridge.BRIDGE_IP, username=Bridge.USERNAME)
+        print("Connected to bridge")
         
 
     def get_lights(self):  #Funktionen är buggad.
