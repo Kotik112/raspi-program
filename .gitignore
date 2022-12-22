@@ -1,2 +1,9 @@
+# .gitignore
+
+# bytecode compiled files
 *.pyc
-models/__pycache__/*.pyc
+models/__pycache__/
+utils/__pycache__/
+
+# Secrets file
+utils/secrets.py
