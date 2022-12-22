@@ -16,6 +16,7 @@ TODO: Kolla på create_schedule(), create_group_schedule() och create_scene()
 
 from models.Bridge import Bridge
 import time
+from utils.MessagingClient import MessagingClient
 
 bridge = Bridge()
 light_list = []  # Lista av alla lampor
@@ -52,15 +53,16 @@ def main():
     light_list = bridge.lights
     bedroom1, hallway, bedroom2, kitchen = sort_lights(light_list)
 
+    message_client = MessagingClient()
+    #message_client.send_message("Hello from Raspberry Pi")
+    
     # DEBUG output för utveckling ifall DEBUG variabeln är True
     debug_print()
         
 
     # Tända alla lampor i bedroom1 och sätt ljusstyrka till 100
-    
-
-    bridge.set_color_loop(bedroom1) # Låser fast programmet :( kanske behöver en egen tråd eller tid som parameter/argument
-
+    for l in bedroom1:
+        pass
     
     
 
