@@ -15,20 +15,22 @@ TODO: Kolla på create_schedule(), create_group_schedule() och create_scene()
 
 
 from models.Bridge import Bridge
-import time
-from utils.MessagingClient import MessagingClient
+import asyncio
+# from utils.MessagingClient import MessagingClient
+from utils.bluetooth import BluetoothScanner
 
-bridge = Bridge()
+
 light_list = []  # Lista av alla lampor
 
 DEBUG = False
+# Only used during development phase
 def debug_print():
     """Printa information om lamporna ifall DEBUG är True"""
     if DEBUG:
         print(f"Number of lights: {len(light_list)}")
         for l in light_list:
             light_info = bridge.get_light(l.light_id)
-            #print(light_info['capabilities']['control'])
+            # print(light_info['capabilities']['control'])
             # Check if the light has color capabilities
             if 'xy' in light_info['state']:
                 print(f'Light: {l.name}, id: {l.light_id}: has color capabilities.')
@@ -47,7 +49,7 @@ def sort_lights(list):
     group4 = list[11:]
 
     return group1, group2, group3, group4
-
+"""
 def main():
     global light_list # global variabel för att kunna använda den i andra funktioner
     light_list = bridge.lights
@@ -63,13 +65,16 @@ def main():
     # Tända alla lampor i bedroom1 och sätt ljusstyrka till 100
     for l in bedroom1:
         pass
-    
-    
+"""
+
+# For testing purposes only in UK
+def main():
+    # bridge = Bridge()
+    bt_scanner = BluetoothScanner(["88:29:9C:36:73:54", "C8:7B:9A:EF:87:65"])
+    print("Scanning for devices... (10 seconds)")
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(bt_scanner.run())
+
 
 if __name__ == '__main__':
     main()
-
-
-"""
-set_color_loop() verkar vara buggad eller så stöder inga av mina lampor det.
-"""

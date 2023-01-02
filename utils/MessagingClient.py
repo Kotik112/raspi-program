@@ -38,6 +38,19 @@ if __name__ == "__main__":
             "postalCode": "12345-6789"
         }
     }
-    data = json.dumps(data) # Konvertera till JSON
-    asyncio.run(client.send_message(data)) # Skicka ett meddelande
+
+    # More dummy data
+    data2 = {
+        "name": "Jane Doe",
+        "age": 31,
+        "isAlive": False,
+        "address": {
+            "streetAddress": "456 Main St",
+            "city": "Stockholm",
+            "state": "Norsborg",
+            "postalCode": "14599"
+        }
+    }
+    data = json.dumps(data2) # Konvertera till JSON
+    asyncio.run(client.send_message(data2)) # Skicka ett meddelande
     asyncio.run(client.disconnect()) # Disconnect
