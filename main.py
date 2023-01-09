@@ -13,12 +13,13 @@ TODO: Kolla på create_schedule(), create_group_schedule() och create_scene()
 
 """
 
-
 from models.Bridge import Bridge
 import asyncio
+import time
 # from utils.MessagingClient import MessagingClient
-from utils.bluetooth import BluetoothScanner
+from utils.BluetoothScanner import BluetoothScanner
 
+BLE_TAG_MAC = "FF:FF:10:5B:DE:6C"
 
 light_list = []  # Lista av alla lampor
 
@@ -49,31 +50,34 @@ def sort_lights(list):
     group4 = list[11:]
 
     return group1, group2, group3, group4
-"""
-def main():
-    global light_list # global variabel för att kunna använda den i andra funktioner
-    light_list = bridge.lights
-    bedroom1, hallway, bedroom2, kitchen = sort_lights(light_list)
 
-    message_client = MessagingClient()
-    #message_client.send_message("Hello from Raspberry Pi")
-    
-    # DEBUG output för utveckling ifall DEBUG variabeln är True
-    debug_print()
-        
-
-    # Tända alla lampor i bedroom1 och sätt ljusstyrka till 100
-    for l in bedroom1:
-        pass
-"""
 
 # For testing purposes only in UK
 def main():
     # bridge = Bridge()
-    bt_scanner = BluetoothScanner(["88:29:9C:36:73:54", "C8:7B:9A:EF:87:65"])
-    print("Scanning for devices... (10 seconds)")
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(bt_scanner.run())
+    is_found = False
+    
+    while True:
+
+        # Scan for devices
+        bt_scanner = BluetoothScanner(BLE_TAG_MAC)
+        print("Scanning for devices... (15 seconds)")
+        loop = asyncio.get_event_loop()
+        result = loop.run_until_complete(bt_scanner.run())
+
+        #Check result of scan
+        if result:
+            if is_found == False:
+                print("Change detected: Turning ON Lights!")
+            is_found = True
+            # print("DEVICE FOUND")
+        else:
+            if is_found == True:
+                print("Change detected: Turning OFF Lights")
+            is_found = False
+            print("DEVICE LOST")
+
+        time.sleep(10)
 
 
 if __name__ == '__main__':

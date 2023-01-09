@@ -13,18 +13,20 @@ class BluetoothScanner:
 
     async def run(self):
         # Scan for devices for 20 seconds. The default is 5 seconds.
-        devices = await BleakScanner.discover(timeout=10) 
+        devices = await BleakScanner.discover(timeout=15) 
         for d in devices:
             if d.address in self.target_addresses:
-                print(f"Target device \033[1m>>{d.name}<<\033[0m with MAC address {d.address} found!")
-            else:
-                print(d)
+                print(f"Target device found with MAC address {d.address} found!")
+                if d.address == "FF:FF:10:5B:DE:6C":
+                    print("ARMAN tag found.")
+                return True
+        return False
 
 if __name__ == "__main__":
-    PHONE_MAC_ADDRESS = "88:29:9C:36:73:54"  # My phone
-    BUDS_MAC_ADDRESS = "C8:7B:9A:EF:87:65"   # My ear buds
+    BLE_TAG_MAC = "FF:FF:10:5B:DE:6C"  # iTag
+    #ALDO_TAG_MAC = "FF:FF:10:5B:54:94"   # Aldo tag
 
-    scanner = BluetoothScanner([PHONE_MAC_ADDRESS, BUDS_MAC_ADDRESS])
+    scanner = BluetoothScanner(BLE_TAG_MAC)
     loop = asyncio.get_event_loop()
     loop.run_until_complete(scanner.run())
     loop.close()
